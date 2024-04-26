@@ -51,24 +51,28 @@
                         </thead>
                         <tbody>
                             @foreach ($students as $user)
-                            <tr>
+                            <tr class="">
                                 <td>{{ $user->id }}</td>
                                 <td>{{ $user->first_name }}</td>
                                 <td>{{ $user->last_name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->dob }}</td>
+                                <td> {{ date('d-m-Y', strtotime($user->dob)) }}</td>
                                 <td>{{ $user->contact_number }}</td>
+                                @php
 
-                                <td> <img src="{{ asset('storage/app/public/' . $user->profile_picture) }}"> </td>
+                                @endphp
+                                <td>
+
+                                  <img width="100" height="100" src="{{ url('storage/'.$user->profile_picture) }}" width="40%">  </td>
                                 <td>
                                     <a href="{{ route('students.edit', $user->id) }}" class="btn btn-primary ">Edit</a>
-                                    <a href="{{ route('students.destroy', $user->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
-                                    {{-- <form action="{{ route('students.destroy', $user->id) }}" method="POST" style="display: inline-block;">
+                                    {{-- <a href="{{ route('students.destroy',$user->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a> --}}
+                                    <form action="{{ route('students.destroy', $user->id) }}" method="POST" style="display: inline-block;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
-                                    </form> --}}
-                                </td>
+                                    </form>
+                                </td>       
                             </tr>
                              @endforeach
                         </tbody>

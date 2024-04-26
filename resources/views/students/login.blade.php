@@ -2,20 +2,20 @@
 
 @section('content')
 @section('css')
-<link rel="stylesheet" href="{{ URL::asset('css/register.css') }} ">
+<link rel="stylesheet" href="{{ asset('css/register.css') }} ">
 @endsection
 <div class="container-sm d-flex flex-wrap justify-content-center align-items-center" style="height: 100vh">
 
     <form action="{{ route('post.login') }}" method="POST">
         @if(session('success'))
-    <div class="alert alert-danger  alert-dismissible">
+    <div class="alert alert-success  alert-dismissible">
     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 
  {{ session('success') }}
 
   </div>
   @endif
-        <div class="container-sm  p-4 rounded-3 border-1  border-black" style="background-color: rgb(240, 241, 236)">
+        <div class="container-sm  p-4 rounded-3 border-1  border-black" style="background-color: rgb(240, 241, 236); max-height:360;">
             <h2 class="text-center">Login</h2>
 @csrf
 

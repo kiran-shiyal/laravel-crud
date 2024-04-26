@@ -2,7 +2,7 @@
 @section('title', 'Registration From')
 
 @section('css')
-<link rel="stylesheet" href="{{ URL::asset('css/register.css') }} ">
+    <link rel="stylesheet" href="{{ asset('css/register.css') }} ">
 @endsection
 
 @section('content')
@@ -64,28 +64,29 @@
                     <div class="col-sm-6  ">
                         <label for="gender" class="">gender :</label>
                         <div class="mt-1 d-flex flex-wrap  justify-content-around ">
-                        <div class="">
-                            <label for="gender" class="">Male</label>
-                            <input type="radio" class="" name="gender" id="male" value="male"
-                            {{ old('gender') == 'male' ? 'checked' : '' }}>
-                        </div>
-                        <div>
+                            <div class="">
+                                <label for="gender" class="">Male</label>
+                                <input type="radio" class="" name="gender" id="male" value="male"
+                                    {{ old('gender') == 'male' ? 'checked' : '' }}>
+                            </div>
+                            <div>
 
                                 <label for="gender" class="">Female</label>
                                 <input type="radio" name="gender" id="male" value="female"
-                                {{ old('gender') == 'female' ? 'checked' : '' }}>
+                                    {{ old('gender') == 'female' ? 'checked' : '' }}>
                             </div>
                             <div>
                                 <label for="gender" class="">Other</label>
                                 <input type="radio" name="gender" id="male" value="other"
-                                {{ old('gender') == 'other' ? 'checked' : '' }}>
+                                    {{ old('gender') == 'other' ? 'checked' : '' }}>
                             </div>
 
 
-                            @error('gender')
-                            <span class="text-danger ">{{ $message }}</span>
-                            @enderror
                         </div>
+
+                        @error('gender')
+                            <span class="text-danger ">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mt-3">
