@@ -58,9 +58,7 @@
                                 <td>{{ $user->email }}</td>
                                 <td> {{ date('d-m-Y', strtotime($user->dob)) }}</td>
                                 <td>{{ $user->contact_number }}</td>
-                                @php
 
-                                @endphp
                                 <td>
 
                                   <img width="100" height="100" src="{{ url('storage/'.$user->profile_picture) }}" width="40%">  </td>
@@ -72,7 +70,7 @@
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
                                     </form>
-                                </td>       
+                                </td>
                             </tr>
                              @endforeach
                         </tbody>

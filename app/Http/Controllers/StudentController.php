@@ -8,6 +8,10 @@ use Illuminate\Auth\AuthServiceProvider;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\SendEmail;
+
 
 class StudentController extends Controller
 {
@@ -90,10 +94,17 @@ class StudentController extends Controller
 
         }
 
-        $student->save();
+        $mailData = [
+            ~'title' => 'Mail from  patoliyainfotech.com',
+            'url'=> 'http://127.0.0.1:8000/login'
+        ];
 
-        return redirect()->route('login')
-            ->with('success', 'registration successfully');
+        Mail::to($request->email)->queue(new SendEmail($mailData));
+
+        // dd("Email is sent successfully.");
+        $student->save();
+        return redirect()->back()
+            ->with('success', 'registration successfully! please verify the the email' );
 
     }
 
@@ -231,6 +242,15 @@ class StudentController extends Controller
     }
     public function dataTable(){
 
+        $students = Student::all();
+        if (Auth::check())
+        {
+            return view('datatable_users', compact('students'));
+
+        } else
+        {
+            return redirect()->route('login');
+        }
 
     }
 }
