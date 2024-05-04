@@ -10,7 +10,7 @@
   </head>
   <body>
 <div>
-
+@yield('message')
     @yield('content')
 </div>
 @yield('js')

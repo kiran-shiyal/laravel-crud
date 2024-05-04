@@ -1,29 +1,21 @@
-function validateForm(e) {
+function validateEditForm(e) {
     let fname = document.getElementById("firstName").value.trim();
     let lname = document.getElementById("lastName").value.trim();
-    let email = document.getElementById("email").value.trim();
-    let password = document.getElementById("password").value.trim();
-    let confirm_password = document.getElementById("confirm_password").value.trim();
-    let emailCol = document.getElementById('emailCol');
     let birth_date = document.getElementById("dob").value;
-    let gender = document.querySelector('input[name="gender"]:checked');
-    let number = document.getElementById("contactNumber").value.trim();
+
+    let number = document.getElementById("number").value.trim();
     let img_path = document.getElementById("file");
 
     // errors variables
     let fnameErr = document.getElementById("fnameErr");
     let lnameErr = document.getElementById("lnameErr");
-    let emailErr = document.getElementById("emailErr");
-    let passwordErr = document.getElementById("passwordErr");
-    let confirm_passwordErr =  document.getElementById("confirm_passwordErr");
     let dateErr = document.getElementById("dateErr");
-    let genderErr = document.getElementById("genderErr");
+
     let numberErr = document.getElementById("numberErr");
     let fileErr = document.getElementById("fileErr");
 
     let nameRegex = /^[a-zA-Z ]+$/;
-    let emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
-    let passRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*()\-+.]).{6,14}$/;
+
     let numberRegex = /^\d{10}$/;
 
     let flag = 1;
@@ -56,44 +48,8 @@ function validateForm(e) {
 
     }
 
-    // email validation
-    if (email === "") {
-        emailErr.innerHTML = "Please enter email address.";
 
-        flag = 0;
-    } else if (!emailRegex.test(email)) {
-        emailErr.innerHTML = "Invalid email address.";
 
-        flag = 0;
-    } else {
-        emailErr.innerHTML = "";
-
-    }
-       // password validation
-       if (password === "") {
-        passwordErr.innerHTML = "Please enter password please!";
-
-        flag = 0;
-    } else if (!passRegex.test(password)) {
-        passwordErr.innerHTML = "Invalid password.";
-
-        flag = 0;
-    } else {
-        passwordErr.innerHTML = "";
-
-    }
-
-    // confirm password validation
-
-    if (password != confirm_password) {
-
-        confirm_passwordErr.innerHTML = "Passwords do not match";
-        flag = 0;
-
-    }else {
-        confirm_passwordErr.innerHTML = "";
-
-    }
  // birth date validation
  if (birth_date === "") {
     dateErr.innerHTML = "Please select birth date";
@@ -104,14 +60,7 @@ function validateForm(e) {
 
 }
   // gender validation
-  if (!gender) {
-    genderErr.innerHTML = "Please select gender";
 
-    flag = 0;
-} else {
-    genderErr.innerHTML = "";
-
-}
 
  // number validation
  if (number === "") {
@@ -129,9 +78,8 @@ function validateForm(e) {
 
 
 if (img_path.value == "") {
-    fileErr.innerHTML = "Please select an image file.";
-
-    flag = 0;
+    fileErr.innerHTML ="";
+    
 } else {
 
     let img = img_path.files[0].size;

@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Student;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -13,6 +14,7 @@ class SendEmail extends Mailable
 {
     use Queueable, SerializesModels;
     public $mailData;
+
     /**
      * Create a new message instance.
      */
@@ -26,8 +28,14 @@ class SendEmail extends Mailable
      */
     public function envelope(): Envelope
     {
+        // Extract the first name from $mailData
+        $firstName = $this->mailData['name'];
+
+        // Set the subject including the user's first name
+        $subject = "Verify your email address for $firstName";
+
         return new Envelope(
-            subject: 'Email Verification',
+            subject: $subject,
         );
     }
 

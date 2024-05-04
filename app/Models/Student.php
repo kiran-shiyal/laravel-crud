@@ -17,6 +17,9 @@ class Student extends Model
         'dob',
         'gender',
         'contact_number',
-        'profile_picture'
+        'profile_picture',
+        'email_verified_at',
+        'email_verify'
+
     ];
 }

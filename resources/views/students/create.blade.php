@@ -21,7 +21,7 @@
             @csrf
             <div class="form border border-1  p-3 rounded-2" style="background-color: rgb(240, 241, 236)">
                 <h2 class="text-center mb-5 text-black">Registration Form</h2>
-                <div class="row ">
+                <div class="row " style="row-gap: 17px;">
 
                     <div class="col-sm-6 ">
                         <label for="firstName" class="">firstName:</label>
@@ -34,7 +34,7 @@
                         </span>
 
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 ">
 
                         <label for="lastName" class="">lastName:</label>
                         <input type="text" class="form-control" id="lastName" value="{{ old('lastName') }}"
@@ -45,7 +45,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="row mt-3">
+                <div class="row mt-3"  style="row-gap: 17px;">
                     <div class="col-sm-6">
                         <label for="email" class="">Email:</label>
                         <input type="text" class="form-control" id="email" value="{{ old('email') }}"
@@ -63,7 +63,40 @@
 
                     </div>
                 </div>
-                <div class="row mt-3">
+                <div class="row mt-3"  style="row-gap: 17px;">
+
+                    <div class=" col-sm-6">
+                        <label for="confirm_password" class="">Confirm Password:</label>
+                        <input type="text" class="form-control" id="confirm_password"
+                            placeholder="Enter confirm password" name="confirm_password">
+                            <span class="text-danger text-sm" id="confirm_passwordErr"> </span>
+
+                    </div>
+
+
+                    <div class="col-sm-6"  style="row-gap: 17px;">
+                        <label for="gender" class="">gender :</label>
+                        <div class="mt-2 d-flex flex-wrap  justify-content-around ">
+                            <div class="">
+                                <label for="gender" class="">Male</label>
+                                <input type="radio" class="" name="gender" id="male" value="male">
+                            </div>
+                            <div>
+
+                                <label for="gender" class="">Female</label>
+                                <input type="radio" name="gender" id="male" value="female">
+                            </div>
+                            <div>
+                                <label for="gender" class="">Other</label>
+                                <input type="radio" name="gender" id="male" value="other">
+                            </div>
+                        </div>
+
+                            <span class="text-danger mt-5 " id ="genderErr">   @error('gender'){{ $message }}  @enderror</span>
+                        </div>
+
+                </div>
+                <div class="row mt-3"  style="row-gap: 17px;">
 
                     <div class="col-sm-6">
                         <label for="dob" class="">Date of Birth :</label>
@@ -73,33 +106,6 @@
                             <span class="text-danger text-sm" id="dateErr"> @error('dob'){{ $message }}  @enderror</span>
 
                     </div>
-
-                    <div class="col-sm-6">
-                        <label for="gender" class="">gender :</label>
-                        <div class="mt-1 d-flex flex-wrap  justify-content-around ">
-                            <div class="">
-                                <label for="gender" class="">Male</label>
-                                <input type="radio" class="" name="gender" id="male" value="male"
-                                    {{ old('gender') == 'male' ? 'checked' : '' }}>
-                            </div>
-                            <div>
-
-                                <label for="gender" class="">Female</label>
-                                <input type="radio" name="gender" id="male" value="female"
-                                    {{ old('gender') == 'female' ? 'checked' : '' }}>
-                            </div>
-                            <div>
-                                <label for="gender" class="">Other</label>
-                                <input type="radio" name="gender" id="male" value="other"
-                                    {{ old('gender') == 'other' ? 'checked' : '' }}>
-                            </div>
-                        </div>
-
-                            <span class="text-danger mt-5 " id ="genderErr">   @error('gender'){{ $message }}  @enderror</span>
-
-                    </div>
-                </div>
-                <div class="row mt-3">
                     <div class="col-sm-6">
 
                         <label for="number" class="">Number :</label>
@@ -109,17 +115,18 @@
 
 
                     </div>
-                    <div class="col-sm-6">
-                        <label for="file" class=""> Profile Image :</label>
-                        <input type="file" class="form-control" id="file" name="file">
-                        <span class="text-danger text-sm" id="fileErr">  @error('file'){{ $message }} @enderror</span>
-
-
-                    </div>
 
                 </div>
                 <div class="row mt-3">
-                    <div class="col mt-3 ">
+                    <div class="col-sm-12">
+                        <label for="file" class=""> Profile Image :</label>
+                        <input type="file" class="form-control" id="file" name="file">
+                        <span class="text-danger text-sm" id="fileErr">  @error('file'){{ $message }} @enderror</span>
+                    </div>
+
+                </div>
+                <div class="row mt-4"  >
+                    <div class="col-sm-12 ">
 
                         <button type="submit" class="btn btn-success w-100">Submit</button>
 

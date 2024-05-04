@@ -1,13 +1,11 @@
-@component('mail::message')
- {{ $mailData['title'] }}
+  @component('mail::message')
+     
+<h1>{{ $mailData['title'] }}</h1>
+   <p>Please click the button below to verify email address</p>
 
- Please click the button below to verify email address
-
-@component('mail::button', ['url' => $mailData['url']])
-Visit Our Website
+ @component('mail::button', ['url' => $mailData['url'], 'color' => 'primary'])
+Click Here to Verify Email
 @endcomponent
 
-if you  did not create the account , no futher action is requires
-Thanks,
-{{ config('app.name') }}
+     {{ config('app.name') }}
 @endcomponent

@@ -57,7 +57,7 @@ class StudentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-        public function store(Request $request)
+    public function store(Request $request)
     {
 
         $request->validate([
@@ -72,7 +72,7 @@ class StudentController extends Controller
         ]);
 
         $student = new Student();
-
+        $email_verify = md5(now());
         $student->first_name = $request->firstName;
         $student->last_name = $request->lastName;
         $student->email = $request->email;
@@ -81,6 +81,7 @@ class StudentController extends Controller
         $student->gender = $request->gender;
         $student->contact_number = $request->number;
         $student->profile_picture = $request->file;
+        $student->email_verify = $email_verify;
 
         if ($request->hasFile('file'))
         {
@@ -94,22 +95,24 @@ class StudentController extends Controller
 
         }
 
+        $student->save();
         $mailData = [
-            ~'title' => 'Mail from  patoliyainfotech.com',
-            'url'=> 'http://127.0.0.1:8000/login'
+            'title' => 'please verify your email address',
+            'url' => 'http://127.0.0.1:8000/email/verify/' .$email_verify,
+            'name'=> $request->firstName,
         ];
 
         Mail::to($request->email)->queue(new SendEmail($mailData));
 
-        // dd("Email is sent successfully.");
-        $student->save();
+
         return redirect()->back()
-            ->with('success', 'registration successfully! please verify the the email' );
+            ->with('success', 'registration successfully! please verify the the email');
 
     }
 
     public function postLogin(Request $request)
     {
+
 
         $request->validate([
 
@@ -126,12 +129,12 @@ class StudentController extends Controller
         if (Auth::attempt($credentials))
         {
 
-
             session(['user' => $request->first_name]);
             return redirect()->route('students.index')->with('success', 'You have Successfully login');
         } else
         {
-            return redirect("/login")->with('success', 'Oppes! You have entered invalid credentials');
+
+            return redirect()->route('login')->with('error', 'Oppes! You have entered invalid credentials');
         }
 
 
@@ -167,7 +170,7 @@ class StudentController extends Controller
         } else
         {
 
-           return redirect()->route('login')->with('success', 'Your session has timed out. Please login again.');
+            return redirect()->route('login')->with('success', 'Your session has timed out. Please login again.');
         }
     }
 
@@ -178,7 +181,6 @@ class StudentController extends Controller
     {
         if (Auth::check())
         {
-
             $request->validate([
                 'editFirstName' => 'required|max:255',
                 'editLastName' => 'required|max:255',
@@ -195,12 +197,14 @@ class StudentController extends Controller
             $user->dob = $request->input('editDob');
             $user->gender = $request->input('editGender');
 
-            if ($request->hasFile('image')) {
+            if ($request->hasFile('image'))
+            {
 
-                if (isset($user->profile_picture)) {
+                if (isset($user->profile_picture))
+                {
                     Storage::disk('public')->delete($user->profile_picture);
                 }
-                 $imgFile = $request->image;
+                $imgFile = $request->image;
                 $imageName = time() . '.' . $request->image->extension();
                 Storage::disk('public')->put($imageName, file_get_contents($imgFile));
                 $user->profile_picture = $imageName;
@@ -213,7 +217,7 @@ class StudentController extends Controller
         } else
         {
 
-           return redirect()->route('login')->with('success', 'Your session has timed out. Please login again.');
+            return redirect()->route('login')->with('success', 'Your session has timed out. Please login again.');
         }
 
 
@@ -230,21 +234,23 @@ class StudentController extends Controller
         {
             $student->delete();
             return redirect()->route('students.index')
-            ->with('success', 'Student is deleted successfully.');
+                ->with('success', 'Student is deleted successfully.');
 
 
         } else
         {
 
-           return redirect()->route('login')->with('success', 'Your session has timed out. Please login again.');
+            return redirect()->route('login')->with('success', 'Your session has timed out. Please login again.');
         }
 
     }
-    public function dataTable(){
+    public function dataTable()
+    {
 
         $students = Student::all();
         if (Auth::check())
         {
+
             return view('datatable_users', compact('students'));
 
         } else
