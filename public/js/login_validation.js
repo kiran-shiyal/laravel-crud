@@ -6,7 +6,7 @@ function validateLogin(e) {
     let passwordErr = document.getElementById("passwordErr");
     let emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
     let passRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*()\-+.]).{6,14}$/;
-
+    let flag = 1;
      // email validation
      if (email === "") {
         emailErr.innerHTML = "Please enter email address.";
@@ -33,6 +33,7 @@ function validateLogin(e) {
         passwordErr.innerHTML = "";
 
     }
+
     if (flag === 0) {
         e.preventDefault();
         return false;

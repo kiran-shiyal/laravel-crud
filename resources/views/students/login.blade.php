@@ -1,5 +1,5 @@
 @extends('students.layout')
- 
+
 @section('content')
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/register.css') }} ">
@@ -22,10 +22,10 @@
 @endif
 <div class="container-sm d-flex flex-wrap justify-content-center align-items-center " style="height: 100vh">
 
-    <form action="{{ route('post.login') }}" method="POST" onsubmit="return validateLogin(event)">
+    <form action="{{ route('post.login') }}" method="POST" style="max-height:338px" onsubmit="return validateLogin(event)">
         @csrf
         <div class="container-sm  p-4 rounded-3 border-1  border-black "
-            style="background-color: rgb(240, 241, 236); max-height:360;">
+            style="background-color: rgb(240, 241, 236);">
             <h2 class="text-center">Login</h2>
 
 

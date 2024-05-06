@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 use App\Mail\SendEmail;
-
+use Yajra\DataTables\DataTables;
 
 class StudentController extends Controller
 {
@@ -98,8 +98,8 @@ class StudentController extends Controller
         $student->save();
         $mailData = [
             'title' => 'please verify your email address',
-            'url' => 'http://127.0.0.1:8000/email/verify/' .$email_verify,
-            'name'=> $request->firstName,
+            'url' => 'http://127.0.0.1:8000/email/verify/' . $email_verify,
+            'name' => $request->firstName,
         ];
 
         Mail::to($request->email)->queue(new SendEmail($mailData));
@@ -126,7 +126,7 @@ class StudentController extends Controller
             'password' => $request->password,
         ];
 
-        if (Auth::attempt($credentials))
+        if (Auth::attempt($credentials, false))
         {
 
             session(['user' => $request->first_name]);
@@ -248,15 +248,27 @@ class StudentController extends Controller
     {
 
         $students = Student::all();
-        if (Auth::check())
-        {
+        return view('datatable_users', compact('students'));
+        
+    }
 
-            return view('datatable_users', compact('students'));
+    public function serverSideDataTable()
+    {
 
-        } else
-        {
-            return redirect()->route('login');
-        }
+        return view('students.server_side_datatable');
 
     }
+
+    public function getData(Request $request)
+    {
+        if ($request->ajax())
+        {
+            $data = Student::all();
+            return Datatables::of($data)->addColumn('image', function ($data) {
+                $imageUrl = url('storage/' . $data->profile_picture);
+                return '<img src="' . $imageUrl . '" border="0" width="100" height = "70">';
+            })->rawColumns(['image'])->make(true);
+        }
+    }
+
 }

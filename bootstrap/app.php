@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
 
          \App\Http\Middleware\Authenticate::class;
+         \App\Http\Middleware\Terminate::class;
 
     })
     ->withExceptions(function (Exceptions $exceptions) {

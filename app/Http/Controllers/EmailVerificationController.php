@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class EmailVerificationController extends Controller
 {
-
+    
     public function emailVerification($hash){
         $student = Student::where('email_verify', $hash)->first();
         if($student){
